@@ -1,0 +1,54 @@
+----------------------------------------------
+Nombre: Gaby
+NIT: 651651
+Placa: PA5616AAS
+Hora de entrada: 1.44 [h.m]
+Hora de salida: 3.54 [h.m]
+Tiempo de estancia: 2.10 horas
+Total a pagar: Q55.00
+----------------------------------------------
+----------------------------------------------
+Nombre: 2
+NIT: 6165166
+Placa: PA1551ASD
+Hora de entrada: 1.12 [h.m]
+Hora de salida: 3.21 [h.m]
+Tiempo de estancia: 2.09 horas
+Total a pagar: Q55.00
+----------------------------------------------
+----------------------------------------------
+Nombre: Cindy
+NIT: 1351164
+Placa: PA165ASD
+Hora de entrada: 1.23 [h.m]
+Hora de salida: 3.55 [h.m]
+Tiempo de estancia: 2.32 horas
+Total a pagar: Q55.00
+----------------------------------------------
+----------------------------------------------
+Nombre: Aura
+NIT: 1205616
+Placa: P0116AAA
+Hora de entrada: 1.22 [h.m]
+Hora de salida: 1.41 [h.m]
+Tiempo de estancia: 0.19 horas
+Total a pagar: Q15.00
+----------------------------------------------
+----------------------------------------------
+Nombre: Maria
+NIT: 61515616
+Placa: P651PLP
+Hora de entrada: 2.31 [h.m]
+Hora de salida: 3.45 [h.m]
+Tiempo de estancia: 1.14 horas
+Total a pagar: Q35.00
+----------------------------------------------
+----------------------------------------------
+Nombre: Juan 
+NIT: 56165
+Placa: asdas
+Hora de entrada: 1.22 [h.m]
+Hora de salida: 3.36 [h.m]
+Tiempo de estancia: 2.14 horas
+Total a pagar: Q55.00
+----------------------------------------------
