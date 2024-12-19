@@ -74,33 +74,6 @@ def total_pago(hora_entrada, hora_salida):
         return 15.00
     return 15.00 + (horas_totales - 1) * 20.00
 
-def generar_factura():
-    global datos_cliente
-    try:
-        tiempo_estancia = datos_cliente["salida"] - datos_cliente["entrada"]
-        pago_total = total_pago(datos_cliente["entrada"], datos_cliente["salida"])
-
-        factura = (
-            "----------------------------------------------\n"
-            f"Nombre: {datos_cliente['nombre']}\n"
-            f"NIT: {datos_cliente['nit']}\n"
-            f"Placa: {datos_cliente['placa']}\n"
-            f"Hora de entrada: {datos_cliente['entrada']} [h.m]\n"
-            f"Hora de salida: {datos_cliente['salida']} [h.m]\n"
-            f"Tiempo de estancia: {tiempo_estancia:.2f} horas\n"
-            f"Total a pagar: Q{pago_total:.2f}\n"
-            "----------------------------------------------\n"
-        )
-
-        print("Factura generada:")
-        print(factura)
-
-        with open("/home/cindy/Documentos/cursos 2024/Proyecto IE/tarea6/facturas.txt", "a") as f:
-            f.write(factura)
-        print("Factura guardada en 'factura.txt'.")
-    except Exception as e:
-        print(f"Error al generar la factura: {e}")
-
 def basePosgresql():
     try:
         conn = psycopg2.connect(
@@ -115,16 +88,76 @@ def basePosgresql():
         print("Error al conectar a la base de datos:", e)
         return None
 
+
+def insertar_en_base_datos(nombre, nit, placa, entrada, salida, pago):
+    """Inserta datos en la tabla parqueo."""
+    try:
+        conn = basePosgresql()
+        if conn:
+            cursor = conn.cursor()
+            # Query para insertar datos
+            query = 'INSERT INTO parqueo("Nombre", "Nit", "Placa", "Entrada", "Salida", "Pago") VALUES (%s, %s, %s, %s, %s, %s)'
+            cursor.execute(query, (nombre, nit, placa, entrada, salida, pago))
+            conn.commit()
+            conn.close()
+            print("Datos insertados en la base de datos correctamente.")
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+
+def generar_factura():
+    global datos_cliente
+    try:
+        # Calcular el tiempo de estancia y el total a pagar
+        tiempo_estancia = datos_cliente["salida"] - datos_cliente["entrada"]
+        pago_total = total_pago(datos_cliente["entrada"], datos_cliente["salida"])
+
+        # Generar la factura como cadena
+        factura = (
+            "----------------------------------------------\n"
+            f"Nombre: {datos_cliente['nombre']}\n"
+            f"NIT: {datos_cliente['nit']}\n"
+            f"Placa: {datos_cliente['placa']}\n"
+            f"Hora de entrada: {datos_cliente['entrada']} [h.m]\n"
+            f"Hora de salida: {datos_cliente['salida']} [h.m]\n"
+            f"Tiempo de estancia: {tiempo_estancia:.2f} horas\n"
+            f"Total a pagar: Q{pago_total:.2f}\n"
+            "----------------------------------------------\n"
+        )
+
+        # Imprimir la factura en la consola
+        print("Factura generada:")
+        print(factura)
+
+        # Guardar la factura en un archivo
+        with open("C:/Users/karen/Downloads/tarea6/facturas.txt", "a") as f:
+            f.write(factura)
+        print("Factura guardada en 'factura.txt'.")
+
+        # Insertar los datos en la base de datos
+        insertar_en_base_datos(
+            datos_cliente["nombre"],          # Nombre del cliente
+            datos_cliente["nit"],             # NIT del cliente
+            datos_cliente["placa"],           # Placa del vehículo
+            datos_cliente["entrada"],         # Hora de entrada (float)
+            datos_cliente["salida"],          # Hora de salida (float)
+            pago_total                        # Pago total calculado
+        )
+
+        print("Datos insertados en la base de datos correctamente.")
+    except Exception as e:
+        print(f"Error al generar la factura: {e}")
+
+
 def historial_datos():
     try:
-        with open("/home/cindy/Documentos/cursos 2024/Proyecto IE/tarea6/facturas.txt", "r") as f:
+        with open("C:/Users/karen/Downloads/tarea6/facturas.txt", "r") as f:
             print("Historial del archivo:\n")
             print(f.read())
         
         conn = basePosgresql()
         if conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM "parqueo";')
+            cursor.execute('SELECT * FROM parqueo;')
             registros = cursor.fetchall()
             print("\n--- Historial en la base de datos ---")
             for registro in registros:
@@ -137,8 +170,8 @@ def historial_datos():
 
 def borrar_datos():
     try:
-        if os.path.exists("/home/cindy/Documentos/cursos 2024/Proyecto IE/tarea6/facturas.txt"):
-            os.remove("/home/cindy/Documentos/cursos 2024/Proyecto IE/tarea6/facturas.txt")
+        if os.path.exists("C:/Users/karen/Downloads/tarea6/facturas.txt"):
+            os.remove("C:/Users/karen/Downloads/tarea6/facturas.txt")
             print("Archivo 'factura.txt' eliminado.")
         else:
             print("El archivo 'factura.txt' no existe.")
@@ -146,7 +179,7 @@ def borrar_datos():
         conn = basePosgresql()
         if conn:
             cursor = conn.cursor()
-            cursor.execute('DELETE FROM "parqueo";')
+            cursor.execute('DELETE FROM parqueo;')
             conn.commit()
             conn.close()
             print("Datos eliminados de la base de datos.")
