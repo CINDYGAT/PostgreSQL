@@ -1,0 +1,31 @@
+----------------------------------------------
+Fecha: 2024-12-18 22:45:33
+Usuario: Cindy
+Tipo de programa: Factorial
+Numero a calcular factorial: 9
+Resultado de factorial: 362880
+----------------------------------------------
+Tipo de programa: Login
+Intentos disponibles: 1
+Usuario: admin
+Password: 123
+----------------------------------------------
+Tipo de programa: Distancia
+x1: 1
+y1: 2
+x2: 3
+y2: 4
+distancia entre coordenadas: 2.8284
+----------------------------------------------
+Tipo de programa: IMC
+Genero: mujer
+Peso: 47
+Altura: 1.6
+IMC: 18.3594
+----------------------------------------------
+Tipo de programa: Sueldo semanal
+Horas trabajadas: 40
+Horas extras trabajadas: 5
+Precio horas extras trabajadas: 9
+Sueldo por semana: 285
+----------------------------------------------

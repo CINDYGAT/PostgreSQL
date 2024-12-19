@@ -1,0 +1,44 @@
+------ servicio mas contratado ----------------
+SELECT s.descripcion, COUNT(c.servicio) AS total_contratos
+FROM pcontrato c
+JOIN pservicio s ON c.servicio = s.codigo
+GROUP BY s.descripcion
+ORDER BY total_contratos DESC
+LIMIT 1;
+
+------------- clientes con mas servicios-----------
+SELECT cl.nombres, cl.apellidos, COUNT(c.servicio) AS total_servicios
+FROM pcontrato c
+JOIN pcliente cl ON c.linea = cl.codigo
+GROUP BY cl.nombres, cl.apellidos
+ORDER BY total_servicios DESC;
+
+----- categorias existen--------
+SELECT codigo, descripcion
+FROM pcategoria;
+SELECT cat.descripcion, COUNT(*) AS total_relacionados
+FROM pcategoria cat
+JOIN plinea l ON cat.codigo = l.categoria -- Ajusta la tabla 'Linea' si aplica
+GROUP BY cat.descripcion
+ORDER BY total_relacionados DESC;
+
+
+------- lineas existentes -----
+SELECT COUNT(*) AS total_lineas
+FROM plinea;
+SELECT codigo, categoria, cliente, telefono
+FROM plinea;
+
+---- cantidad de contratos ------
+SELECT COUNT(*) AS total_contratos
+FROM pcontrato;
+--SELECT *
+---FROM pcontrato;
+
+
+
+
+
+
+
+
